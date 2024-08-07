@@ -1,33 +1,39 @@
 import React, { useState } from "react";
+import TodoItem from "./TodoItem";
+import styles from "../components/todo.module.css";
 
 const Todo = () => {
-  let [newTodo, setTodo] = useState("");
+  const [value, setValue] = useState("");
   const [todos, setTodos] = useState([]);
 
-//   const handleChange = (e) => {
-//     setTodo(e.target.value);
-//   };
-
+  
+const onDelete = (id) => {
+let newTodo = todos.filter(todo => todo.id !== id)
+setTodos(newTodo)
+}
   return (
     <div>
       <h1>Todo App</h1>
-      <input value={newTodo} onChange={(e) => setTodo(e.target.value)} />
+      <input
+        value={value}
+        onChange={(e) => {
+          setValue(e.target.value);
+        }}
+      />
 
       <button
         onClick={() => {
-          setTodos([
-            ...todos,
-            { id: Date.now(), value: newTodo, isCompleted: false },
-          ]);
-          setTodo("")
+          setTodos([...todos, { id: Date.now(), value: value }]);
+          setValue("");
         }}
       >
         Add
       </button>
-      {/* Todos */}
-      {todos.map((todo) => (
-        <div>{todo.value}</div>
-      ))}
+      <div className={styles.todoList}>
+        {todos.map((todo) => (
+          <TodoItem key={todo.id} todo={todo} onDelete={onDelete}/>
+        ))}
+      </div>
     </div>
   );
 };

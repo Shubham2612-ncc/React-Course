@@ -1,0 +1,14 @@
+.todoList{
+    align-items: center;
+    margin-left: 45%;
+    gap: 10px;
+}
+
+.todo{
+    display: flex;
+    max-width: 200px;
+}
+
+.striked{
+    text-decoration: line-through;
+}
